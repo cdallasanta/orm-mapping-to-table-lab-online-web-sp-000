@@ -4,6 +4,7 @@ class Student
   #  with DB[:conn]
 
   attr_accessor :name, :grade
+  attr_reader :id
 
   def initialize(name, grade, id = null)
     self.name = name
@@ -20,8 +21,8 @@ class Student
     DB[:conn].execute(sql, self.name, self.grade)
   end
 
-  def create(name, grade)
-    song = Song.new(name, grade)
+  def create(hash)
+    song = Song.new(hash[name], hash[grade])
     song.save
     song
   end
@@ -38,5 +39,7 @@ class Student
     DB[:conn].execute(sql)
   end
 
-
+  def self.drop_table
+    DB[:conn].execute("DROP TABLE students;")
+  end
 end
