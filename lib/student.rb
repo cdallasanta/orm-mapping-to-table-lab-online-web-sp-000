@@ -6,10 +6,9 @@ class Student
   attr_accessor :name, :grade
   attr_reader :id
 
-  def initialize(name, grade, id = null)
+  def initialize(name, grade)
     self.name = name
     self.grade = grade
-    self.id = id
   end
 
   def save
@@ -21,7 +20,7 @@ class Student
     DB[:conn].execute(sql, self.name, self.grade)
   end
 
-  def create(hash)
+  def self.create(hash)
     song = Song.new(hash[name], hash[grade])
     song.save
     song
